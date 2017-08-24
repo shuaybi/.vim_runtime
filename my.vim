@@ -559,20 +559,6 @@ else
     \ }
 endif
 
-"""""""""""""""""""""""""""""""""""""""""
-" Create a submode to handle windows
-"""""""""""""""""""""""""""""""""""""""""
-" enter submode whith <Leader>k and exit with <Leader>
-call submode#enter_with('WindowsMode', 'n', '', '<Leader>k', ':echo "windows mode"<CR>')
-call submode#leave_with('WindowsMode', 'n', '', '<Leader>')
-
-" change of windows with hjkl
-call submode#map('WindowsMode', 'n', '', 'j', '<C-w>j')
-call submode#map('WindowsMode', 'n', '', 'k', '<C-w>k')
-call submode#map('WindowsMode', 'n', '', 'h', '<C-w>h')
-call submode#map('WindowsMode', 'n', '', 'l', '<C-w>l')
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " dbext
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""
