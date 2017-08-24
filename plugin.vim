@@ -1,28 +1,28 @@
 call plug#begin('~/.vim/plugged')
 
-Plugin 'mileszs/ack.vim'
-Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'vim-scripts/dbext.vim'
-Plugin 'junegunn/goyo.vim' "distraction free writing
-Plugin 'morhetz/gruvbox' "color scheme
-Plugin 'haya14busa/incsearch.vim'
-Plugin 'itchyny/lightline.vim'
-Plugin 'adelarsq/vim-matchit'
-Plugin 'luochen1990/rainbow'
-Plugin 'ervandew/supertab'
-Plugin 'tomtom/tlib_vim' "some utility functions
-Plugin '907th/vim-auto-save'
-Plugin 'easymotion/vim-easymotion'
-Plugin 'elixir-editors/vim-elixir'
-Plugin 'terryma/vim-expand-region'
-Plugin 'tpope/vim-fugitive'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'Yggdroot/indentLine' 
-Plugin 'beloglazov/vim-online-thesaurus'
-Plugin 'tpope/vim-repeat'
-Plugin 'airblade/vim-rooter'
-Plugin 'tpope/vim-surround'
-Plugin 'yegappan/mru'
-Plugin '
+Plug 'mileszs/ack.vim'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'vim-scripts/dbext.vim'
+Plug 'junegunn/goyo.vim' "distraction free writing
+Plug 'morhetz/gruvbox' "color scheme
+Plug 'haya14busa/incsearch.vim'
+Plug 'itchyny/lightline.vim'
+Plug 'adelarsq/vim-matchit'
+Plug 'luochen1990/rainbow'
+Plug 'ervandew/supertab'
+Plug 'tomtom/tlib_vim' "some utility functions
+Plug '907th/vim-auto-save'
+Plug 'easymotion/vim-easymotion'
+Plug 'elixir-editors/vim-elixir'
+Plug 'terryma/vim-expand-region'
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
+Plug 'Yggdroot/indentLine' 
+Plug 'beloglazov/vim-online-thesaurus'
+Plug 'tpope/vim-repeat'
+Plug 'airblade/vim-rooter'
+Plug 'tpope/vim-surround'
+Plug 'yegappan/mru'
+Plug 'junegunn/seoul256.vim' "color scheme 
 
 call plug#end()

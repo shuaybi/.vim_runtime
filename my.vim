@@ -293,11 +293,17 @@ set gfn=Inconsolata:h17,Hack:h14,Source\ Code\ Pro:h15,Menlo:h15
 let g:online_thesaurus_map_keys = 0
 nnoremap <leader>t :OnlineThesaurusCurrentWord<CR>:set wrap<CR>
 
-" colorscheme
+"colorscheme
 set background=dark
 colorscheme gruvbox
 let g:gruvbox_italicize_comments=0
 let g:gruvbox_italic=0
+
+" seoul256 (dark):
+"   Range:   233 (darkest) ~ 239 (lightest)
+"   Default: 237
+"let g:seoul256_background = 236
+"colo seoul256
 
 " show line numbers
 set number

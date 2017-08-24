@@ -1,0 +1,4 @@
+source ~/.vim_runtime/plugin.vim
+source ~/.vim_runtime/basic.vim
+source ~/.vim_runtime/extended.vim
+source ~/.vim_runtime/my.vim
