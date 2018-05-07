@@ -24,6 +24,5 @@ Plug 'airblade/vim-rooter'
 Plug 'tpope/vim-surround'
 Plug 'yegappan/mru'
 Plug 'junegunn/seoul256.vim' "color scheme 
-Plug 'ap/vim-buftabline'
 
 call plug#end()

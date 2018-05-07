@@ -16,6 +16,13 @@ set shiftwidth=2
 set softtabstop=2
 set tabstop=2
 
+" don't show tabline on top (as I don't use tabs)
+set showtabline=0
+set hidden
+
+" rational: https://stackoverflow.com/questions/1269648/how-do-i-close-a-single-buffer-out-of-many-in-vim
+set wildmode=list:longest,full
+
 " do not ever wrap lines
 set tw=999999
 set wrap
@@ -44,6 +51,7 @@ let g:gruvbox_italic=0
 
 " show line numbers
 set number
+"set relativenumber
 
 " for long wrapped lines, prevent jumps in the screen
 set display=lastline
@@ -91,6 +99,10 @@ nnoremap  <silent> <s-tab>  :if &modifiable && !&readonly && &modified <CR> :wri
 " nnoremap - :Lexplore<cr>
 nnoremap - :Explore<cr>
 nnoremap = :MRU<cr>
+nnoremap ] :bnext<cr>
+nnoremap [ :bprev<cr>
+nnoremap <leader>z :bw<cr>
+
 " show/hide invisible chars
 "nnoremap <leader>l :set list!<cr>
 set list
@@ -256,9 +268,13 @@ let g:ackprg = 'ag --nogroup --nocolor --column'
 " Use the nearest .git directory as the cwd
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlP'
+" let g:ctrlp_cmd = 'CtrlP'
 "nnoremap <Leader>j :CtrlP<CR>
-nnoremap ] :CtrlP<CR>
+nnoremap ; :CtrlP<CR>
+let g:ctrlp_prompt_mappings = {
+    \ 'PrtSelectMove("j")':   ['<c-j>', '<down>', '<tab>'],
+    \ 'PrtSelectMove("k")':   ['<c-k>', '<up>', '<s-tab>']
+  \ }
 
 " let g:ctrlp_cmd='CtrlP :pwd'
 
@@ -284,6 +300,8 @@ let g:ctrlp_match_window = 'top,order:ttb,min:1,max:20,results:20'
 " fuzzy search in projects folder
 " noremap <C-p> :CtrlP ~/projects/<CR>
 
+let g:ctrlp_mruf_last_entered = 1
+
 let g:ctrlp_use_caching = 0
 if executable('ag')
     set grepprg=ag\ --nogroup\ --nocolor
@@ -293,6 +311,8 @@ else
   let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
   let g:ctrlp_prompt_mappings = {
     \ 'AcceptSelection("e")': ['<space>', '<cr>', '<2-LeftMouse>'],
+    \ 'PrtSelectMove("j")':   ['<c-j>', '<down>', '<tab>'],
+    \ 'PrtSelectMove("k")':   ['<c-k>', '<up>', '<s-tab>']
     \ }
 endif
 
@@ -366,6 +386,9 @@ nnoremap <space>go :Git checkout<Space>
 nnoremap <space>gps :Dispatch! git push<CR>
 nnoremap <space>gpl :Dispatch! git pull<CR>
 
-augroup filetypedetect
-    au BufRead,BufNewFile *.drab set filetype=html
-augroup END
+"augroup filetypedetect
+"    au BufRead,BufNewFile *.drab set filetype=eelixir
+"augroup END
+
+"don't hide double quotes in json files
+set conceallevel=0
