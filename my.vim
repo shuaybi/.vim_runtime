@@ -16,6 +16,10 @@ set shiftwidth=2
 set softtabstop=2
 set tabstop=2
 
+" add dash character to search 
+" (searches for whole words separated by dash characters)
+set isk+=-
+
 " don't show tabline on top (as I don't use tabs)
 set showtabline=0
 set hidden
@@ -267,6 +271,7 @@ let g:ackprg = 'ag --nogroup --nocolor --column'
 
 " Use the nearest .git directory as the cwd
 let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_by_filename = 1
 let g:ctrlp_map = '<c-p>'
 " let g:ctrlp_cmd = 'CtrlP'
 "nnoremap <Leader>j :CtrlP<CR>
@@ -275,6 +280,7 @@ let g:ctrlp_prompt_mappings = {
     \ 'PrtSelectMove("j")':   ['<c-j>', '<down>', '<tab>'],
     \ 'PrtSelectMove("k")':   ['<c-k>', '<up>', '<s-tab>']
   \ }
+
 
 " let g:ctrlp_cmd='CtrlP :pwd'
 
@@ -288,7 +294,6 @@ nnoremap <leader>m :CtrlPMRU<cr>
 " nnoremap <leader>px :CtrlPMixed<cr>
 " nnoremap <leader>pm :CtrlPMRU<cr>
 
-let g:EasyMotion_do_mapping = 1
 
 let g:ctp_max_height = 50
 " following is ignored if we use external search program such as ag
@@ -321,15 +326,20 @@ endif
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Each profile has the form:
 " g:dbext_default_profile_'profilename' = 'var=value:var=value:...'
-"let g:dbext_default_profile = 'psql'
+let g:dbext_default_profile = 'psql'
 let g:dbext_default_profile_uat_io_audit='type=PGSQL:host=vmlinpgsqluat1:port=5432:dbname=in2_io_uat:user=io_audit'
-let g:dbext_default_profile_uat_io='type=PGSQL:host=vmlinpgsqluat1:port=5432:dbname=in2_io_uat:user=in2_admin'
+let g:dbext_default_profile_uat_io_checklist='type=PGSQL:host=vmlinpgsqluat1:port=5432:dbname=io_checklist:user=in2_admin'
+let g:dbext_default_profile_uat_io_chat='type=PGSQL:host=vmlinpgsqluat1:port=5432:dbname=io_chat:user=in2_admin'
 let g:dbext_default_profile_uat_audit='type=PGSQL:host=vmlinpgsqluat1:port=5432:dbname=io_audit_uat:user=in2_admin'
 let g:dbext_default_profile_prd_io='type=PGSQL:host=vmlinpgsqlprd1:port=5432:dbname=in2_io:user=in2_admin'
 let g:dbext_default_profile_prd_io_audit='type=PGSQL:host=vmlinpgsqlprd1:port=5432:dbname=in2_io:user=io_audit'
 let g:dbext_default_profile_prd_audit='type=PGSQL:host=vmlinpgsqlprd1:port=5432:dbname=io_audit:user=in2_admin'
 let g:dbext_default_profile_dev_io='type=PGSQL:host=localhost:port=5432:dbname=in2_io_dev:user=in2_admin'
 let g:dbext_default_profile_fs='type=ORA:srvname=faq_store_prd:user=rfpdb_user:passwd=rfpdb_user' 
+let g:dbext_default_profile_uat_histex='type=PGSQL:host=vmlinpgsqluat1:port=5432:dbname=histex_uat:user=in2_admin'
+let g:dbext_default_profile_prd_histex='type=PGSQL:host=vmlinpgsqlprd1:port=5432:dbname=histex:user=in2_admin'
+let g:dbext_default_profile_uat_tradex='type=PGSQL:host=vmlinpgsqluat1:port=5432:dbname=tradex_uat:user=in2_admin'
+let g:dbext_default_profile_prd_tradex='type=PGSQL:host=vmlinpgsqlprd1:port=5432:dbname=tradex:user=in2_admin'
 " autocmd VimEnter * DBCompleteTables
 " DBCheckModeline
 " DBPromptForBufferParameters (or ,sbp)
@@ -340,11 +350,11 @@ let g:dbext_default_profile_fs='type=ORA:srvname=faq_store_prd:user=rfpdb_user:p
 " easymotion
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Turn on case insensitive feature
-map <Leader> <Plug>(easymotion-prefix)
-let g:EasyMotion_do_mapping = 0 " Disable default mappings
-nmap s <Plug>(easymotion-overwin-f2)
+"map <Leader> <Plug>(easymotion-prefix)
+"let g:EasyMotion_do_mapping = 0 " Disable default mappings
+"nmap s <Plug>(easymotion-overwin-f2)
 " Turn on case insensitive feature
-let g:EasyMotion_smartcase = 1
+"let g:EasyMotion_smartcase = 1
 
 " JK motions: Line motions
 " map <Leader>j <Plug>(easymotion-j)
@@ -392,3 +402,6 @@ nnoremap <space>gpl :Dispatch! git pull<CR>
 
 "don't hide double quotes in json files
 set conceallevel=0
+
+"highlight sql files using pgsql plugin
+let g:sql_type_default = 'pgsql'

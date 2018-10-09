@@ -12,7 +12,7 @@ Plug 'luochen1990/rainbow'
 Plug 'ervandew/supertab'
 Plug 'tomtom/tlib_vim' "some utility functions
 Plug '907th/vim-auto-save'
-Plug 'easymotion/vim-easymotion'
+"Plug 'easymotion/vim-easymotion'
 Plug 'elixir-editors/vim-elixir'
 Plug 'terryma/vim-expand-region'
 Plug 'tpope/vim-fugitive'
@@ -23,6 +23,8 @@ Plug 'tpope/vim-repeat'
 Plug 'airblade/vim-rooter'
 Plug 'tpope/vim-surround'
 Plug 'yegappan/mru'
-Plug 'junegunn/seoul256.vim' "color scheme 
+"Plug 'junegunn/seoul256.vim' "color scheme 
+Plug 'lifepillar/pgsql.vim'
+"Plug 'gcmt/taboo.vim'
 
 call plug#end()
