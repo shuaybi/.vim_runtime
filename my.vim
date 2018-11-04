@@ -36,7 +36,9 @@ set modeline
 set modelines=5
 
 "set gfn=Consolas:h16,Fira\ Mono:h15,Inconsolata:h16,Hack:h14,Source\ Code\ Pro:h15,Menlo:h15
-set gfn=Inconsolata:h17,Hack:h14,Source\ Code\ Pro:h15,Menlo:h15
+"set gfn=Inconsolata:h17,Hack:h14,Source\ Code\ Pro:h15,Menlo:h15
+set macligatures
+set guifont=Fira\ Code:h16
 
 let g:online_thesaurus_map_keys = 0
 nnoremap <leader>t :OnlineThesaurusCurrentWord<CR>:set wrap<CR>
@@ -44,6 +46,9 @@ nnoremap <leader>t :OnlineThesaurusCurrentWord<CR>:set wrap<CR>
 "colorscheme
 set background=dark
 colorscheme gruvbox
+"colorscheme base16-default-dark
+set termguicolors
+"colorscheme spacegray
 let g:gruvbox_italicize_comments=0
 let g:gruvbox_italic=0
 
@@ -68,7 +73,7 @@ set noundofile
 
 " disable folding
 set nofoldenable
-autocmd FileType * exe "normal zR"
+" autocmd FileType * exe "normal zR"
 
 " press ENTER to create new line after the current line
 " nmap <CR> o<Esc>
@@ -126,12 +131,13 @@ inoremap jk <esc>
 " cycle through windows using tt
 nnoremap tt :wincmd w<cr>
 
+nnoremap zz :wa<cr>
 " below settings require the vim-auto-save plugin:
 " https://github.com/907th/vim-auto-save
-let g:auto_save_events = ["InsertLeave", "TextChanged"]
-let g:auto_save = 1  " enable AutoSave on Vim startup
-let g:auto_save_no_updatetime = 1  " do not change the 'updatetime' option
-set updatetime=1000
+"let g:auto_save_events = ["InsertLeave", "TextChanged"]
+"let g:auto_save = 1  " enable AutoSave on Vim startup
+"let g:auto_save_no_updatetime = 1  " do not change the 'updatetime' option
+"set updatetime=1000
 
 " start in full screen mode
 " set fu
@@ -235,14 +241,41 @@ endfu
 " let NERDTreeMouseMode=3
 
 " open NERDTree automatically when vim starts up
-" autocmd StdinReadPre * let s:std_in=1
-" autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+"autocmd StdinReadPre * let s:std_in=1
+"autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+
+nnoremap <Leader>f :NERDTreeToggle<Enter>
+nnoremap <silent> <Leader>v :NERDTreeFind<CR>
+let NERDTreeQuitOnOpen = 0
 
 " close vim if the only window left open is a NERDTree?
-" autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " automatically delete the buffer of the file you just deleted with NerdTree:
-" let NERDTreeAutoDeleteBuffer = 1
+let NERDTreeAutoDeleteBuffer = 1
+
+let NERDTreeMinimalUI = 1
+let NERDTreeDirArrows = 1
+
+" show hidden files (starting with dot)
+let NERDTreeShowHidden=1
+let NERDTreeIgnore = ['\.DS_Store$']
+
+let g:fzf_layout = { 'window': 'let g:launching_fzf = 1 | keepalt topleft 100split enew' }
+
+autocmd FileType nerdtree let t:nerdtree_winnr = bufwinnr('%')
+autocmd BufWinEnter * call PreventBuffersInNERDTree()
+
+function! PreventBuffersInNERDTree()
+  if bufname('#') =~ 'NERD_tree' && bufname('%') !~ 'NERD_tree'
+    \ && exists('t:nerdtree_winnr') && bufwinnr('%') == t:nerdtree_winnr
+    \ && &buftype == '' && !exists('g:launching_fzf')
+    let bufnum = bufnr('%')
+    close
+    exe 'b ' . bufnum
+  endif
+  if exists('g:launching_fzf') | unlet g:launching_fzf | endif
+endfunction
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
@@ -275,7 +308,7 @@ let g:ctrlp_by_filename = 1
 let g:ctrlp_map = '<c-p>'
 " let g:ctrlp_cmd = 'CtrlP'
 "nnoremap <Leader>j :CtrlP<CR>
-nnoremap ; :CtrlP<CR>
+nnoremap \ :CtrlP<CR>
 let g:ctrlp_prompt_mappings = {
     \ 'PrtSelectMove("j")':   ['<c-j>', '<down>', '<tab>'],
     \ 'PrtSelectMove("k")':   ['<c-k>', '<up>', '<s-tab>']
@@ -287,7 +320,7 @@ let g:ctrlp_prompt_mappings = {
 " Enter shows CtrlP buffer
 " nmap <CR> :CtrlPBuffer<CR>
 " - shows CtrlP buffer
-nnoremap \ :CtrlPBuffer<CR>
+nnoremap ; :CtrlPBuffer<CR>
 nnoremap <leader>m :CtrlPMRU<cr>
 
 " Easy bindings for its various modes
@@ -314,12 +347,12 @@ if executable('ag')
     let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 else
   let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
-  let g:ctrlp_prompt_mappings = {
-    \ 'AcceptSelection("e")': ['<space>', '<cr>', '<2-LeftMouse>'],
-    \ 'PrtSelectMove("j")':   ['<c-j>', '<down>', '<tab>'],
-    \ 'PrtSelectMove("k")':   ['<c-k>', '<up>', '<s-tab>']
-    \ }
 endif
+  let g:ctrlp_prompt_mappings = {
+    \ 'AcceptSelection("e")': ['<cr>', '<2-LeftMouse>'],
+    \ 'PrtSelectMove("j")':   ['<space>', '<c-j>', '<down>', '<tab>'],
+    \ 'PrtSelectMove("k")':   ['<s-space>', '<c-k>', '<up>', '<s-tab>']
+    \ }
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " dbext
@@ -349,6 +382,20 @@ let g:dbext_default_profile_prd_tradex='type=PGSQL:host=vmlinpgsqlprd1:port=5432
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""
 " easymotion
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""
+" <Leader>f{char} to move to {char}
+"map  <Leader>f <Plug>(easymotion-bd-f)
+"nmap <Leader>f <Plug>(easymotion-overwin-f)
+
+" s{char}{char} to move to {char}{char}
+"map s <Plug>(easymotion-overwin-f2)
+
+" Move to line
+"map <Leader>L <Plug>(easymotion-bd-jk)
+"nmap <Leader>L <Plug>(easymotion-overwin-line)
+
+" Move to word
+"map  <Leader>w <Plug>(easymotion-bd-w)
+"nmap <Leader>w <Plug>(easymotion-overwin-w)
 " Turn on case insensitive feature
 "map <Leader> <Plug>(easymotion-prefix)
 "let g:EasyMotion_do_mapping = 0 " Disable default mappings
@@ -405,3 +452,32 @@ set conceallevel=0
 
 "highlight sql files using pgsql plugin
 let g:sql_type_default = 'pgsql'
+
+let g:syntastic_javascript_checkers=['eslint']
+
+""""""" pangloss/vim-javascript """""""
+let g:javascript_plugin_jsdoc = 1
+
+""""""" othree/javascript-libraries-syntax.vim """""""
+let g:used_javascript_libs = 'underscore,jquery,react'
+
+let g:closetag_filenames = '*.html,*.jsx,*.js'
+
+""""""" Valloric/MatchTagAlways """""""
+let g:mta_filetypes = {
+  \ 'html' : 1,
+  \ 'xhtml' : 1,
+  \ 'xml' : 1,
+  \ 'javascript.jsx' : 1,
+\}
+
+" Used for mhinz/vim-grepper
+nmap gs  <plug>(GrepperOperator)
+xmap gs  <plug>(GrepperOperator)
+
+""""""" mxw/vim-jsx """""""
+" file does not have to have jsx extension
+let g:jsx_ext_required = 0
+
+" Plug javascript-libraries-syntax.vim
+let g:used_javascript_libs = 'lodash,react,jQuery,'
