@@ -1,5 +1,5 @@
 "" space between lines
-set linespace=5
+set linespace=6
 
 " disable autoindent 
 :nnoremap <F8> :setl noai nocin nosi inde=<CR>
@@ -35,29 +35,33 @@ set wrap
 set modeline
 set modelines=5
 
+ if has("gui_running")
+  set macligatures
+endif
 "set gfn=Consolas:h16,Fira\ Mono:h15,Inconsolata:h16,Hack:h14,Source\ Code\ Pro:h15,Menlo:h15
 "set gfn=Inconsolata:h17,Hack:h14,Source\ Code\ Pro:h15,Menlo:h15
-set macligatures
-set guifont=Fira\ Code:h16
-
-let g:online_thesaurus_map_keys = 0
-nnoremap <leader>t :OnlineThesaurusCurrentWord<CR>:set wrap<CR>
+set guifont=Fira\ Code:h15
+"set guifont=Inconsolata:h17
 
 "colorscheme
+"set termguicolors
 set background=dark
 colorscheme gruvbox
-"colorscheme base16-default-dark
-set termguicolors
-"colorscheme spacegray
 let g:gruvbox_italicize_comments=0
 let g:gruvbox_italic=0
 
-" seoul256 (dark):
-"   Range:   233 (darkest) ~ 239 (lightest)
-"   Default: 237
-"let g:seoul256_background = 236
-"colo seoul256
+highlight Cursor guifg=white guibg=black
+highlight iCursor guifg=white guibg=steelblue
+set guicursor=n-i-c-a:hor30-iCursor-blinkwait300-blinkon200-blinkoff150
+"set guicursor=n-v-c:block-Cursor-blinkon100
+set guicursor+=ve:ver35-Cursor
+set guicursor+=o:hor50-Cursor-blinkwait175-blinkoff150-blinkon175
+"set guicursor+=i-ci:ver20-Cursor
+set guicursor+=r-cr:hor20-Cursor
+set guicursor+=sm:block-Cursor-blinkwait175-blinkoff150-blinkon175
 
+let g:online_thesaurus_map_keys = 0
+nnoremap <leader>t :OnlineThesaurusCurrentWord<CR>:set wrap<CR>
 " show line numbers
 set number
 "set relativenumber
@@ -81,7 +85,6 @@ set nofoldenable
 " don't insert comment char on new line (when creating multi-line comment)
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
-set guicursor=n-ci:hor30-iCursor-blinkwait300-blinkon200-blinkoff150
 
 " for ahlulbayt blog
 nmap <leader>y i<space><esc>lysiw)
@@ -128,10 +131,13 @@ set listchars=tab:▸\ ,eol:¬,trail:_,extends:>,precedes:<,nbsp:_,space:·
 inoremap jk <esc>
 " inoremap kj <esc>
 
+" clear search highlights on esc
+map <esc> :noh<cr>
+
 " cycle through windows using tt
 nnoremap tt :wincmd w<cr>
 
-nnoremap zz :wa<cr>
+nnoremap ss :wa<cr>
 " below settings require the vim-auto-save plugin:
 " https://github.com/907th/vim-auto-save
 "let g:auto_save_events = ["InsertLeave", "TextChanged"]
@@ -244,38 +250,38 @@ endfu
 "autocmd StdinReadPre * let s:std_in=1
 "autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
-nnoremap <Leader>f :NERDTreeToggle<Enter>
-nnoremap <silent> <Leader>v :NERDTreeFind<CR>
-let NERDTreeQuitOnOpen = 0
+"nnoremap <Leader>f :NERDTreeToggle<Enter>
+"nnoremap <silent> <Leader>v :NERDTreeFind<CR>
+"let NERDTreeQuitOnOpen = 0
 
 " close vim if the only window left open is a NERDTree?
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+"autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " automatically delete the buffer of the file you just deleted with NerdTree:
-let NERDTreeAutoDeleteBuffer = 1
+"let NERDTreeAutoDeleteBuffer = 1
 
-let NERDTreeMinimalUI = 1
-let NERDTreeDirArrows = 1
+"let NERDTreeMinimalUI = 1
+"let NERDTreeDirArrows = 1
 
 " show hidden files (starting with dot)
-let NERDTreeShowHidden=1
-let NERDTreeIgnore = ['\.DS_Store$']
+"let NERDTreeShowHidden=1
+"let NERDTreeIgnore = ['\.DS_Store$']
 
-let g:fzf_layout = { 'window': 'let g:launching_fzf = 1 | keepalt topleft 100split enew' }
+"let g:fzf_layout = { 'window': 'let g:launching_fzf = 1 | keepalt topleft 100split enew' }
 
-autocmd FileType nerdtree let t:nerdtree_winnr = bufwinnr('%')
-autocmd BufWinEnter * call PreventBuffersInNERDTree()
+"autocmd FileType nerdtree let t:nerdtree_winnr = bufwinnr('%')
+"autocmd BufWinEnter * call PreventBuffersInNERDTree()
 
-function! PreventBuffersInNERDTree()
-  if bufname('#') =~ 'NERD_tree' && bufname('%') !~ 'NERD_tree'
-    \ && exists('t:nerdtree_winnr') && bufwinnr('%') == t:nerdtree_winnr
-    \ && &buftype == '' && !exists('g:launching_fzf')
-    let bufnum = bufnr('%')
-    close
-    exe 'b ' . bufnum
-  endif
-  if exists('g:launching_fzf') | unlet g:launching_fzf | endif
-endfunction
+"function! PreventBuffersInNERDTree()
+"  if bufname('#') =~ 'NERD_tree' && bufname('%') !~ 'NERD_tree'
+"    \ && exists('t:nerdtree_winnr') && bufwinnr('%') == t:nerdtree_winnr
+"    \ && &buftype == '' && !exists('g:launching_fzf')
+"    let bufnum = bufnr('%')
+"    close
+"    exe 'b ' . bufnum
+"  endif
+"  if exists('g:launching_fzf') | unlet g:launching_fzf | endif
+"endfunction
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
@@ -304,11 +310,12 @@ let g:ackprg = 'ag --nogroup --nocolor --column'
 
 " Use the nearest .git directory as the cwd
 let g:ctrlp_working_path_mode = 'ra'
-let g:ctrlp_by_filename = 1
+" Set this to 1 to set searching by filename (as opposed to full path)
+" let g:ctrlp_by_filename = 1
 let g:ctrlp_map = '<c-p>'
 " let g:ctrlp_cmd = 'CtrlP'
 "nnoremap <Leader>j :CtrlP<CR>
-nnoremap \ :CtrlP<CR>
+nnoremap ; :CtrlP<CR>
 let g:ctrlp_prompt_mappings = {
     \ 'PrtSelectMove("j")':   ['<c-j>', '<down>', '<tab>'],
     \ 'PrtSelectMove("k")':   ['<c-k>', '<up>', '<s-tab>']
@@ -320,7 +327,8 @@ let g:ctrlp_prompt_mappings = {
 " Enter shows CtrlP buffer
 " nmap <CR> :CtrlPBuffer<CR>
 " - shows CtrlP buffer
-nnoremap ; :CtrlPBuffer<CR>
+nnoremap \ :CtrlPBuffer<CR>
+nnoremap mm :CtrlPBuffer<CR>
 nnoremap <leader>m :CtrlPMRU<cr>
 
 " Easy bindings for its various modes
@@ -349,7 +357,7 @@ else
   let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
 endif
   let g:ctrlp_prompt_mappings = {
-    \ 'AcceptSelection("e")': ['<cr>', '<2-LeftMouse>'],
+    \ 'AcceptSelection("e")': ['<cr>', ';', '<2-LeftMouse>'],
     \ 'PrtSelectMove("j")':   ['<space>', '<c-j>', '<down>', '<tab>'],
     \ 'PrtSelectMove("k")':   ['<s-space>', '<c-k>', '<up>', '<s-tab>']
     \ }
@@ -361,10 +369,14 @@ endif
 " g:dbext_default_profile_'profilename' = 'var=value:var=value:...'
 let g:dbext_default_profile = 'psql'
 let g:dbext_default_profile_uat_io_audit='type=PGSQL:host=vmlinpgsqluat1:port=5432:dbname=in2_io_uat:user=io_audit'
+let g:dbext_default_profile_uat_in2_io='type=PGSQL:host=vmlinpgsqluat1:port=5432:dbname=in2_io_uat:user=in2_admin'
 let g:dbext_default_profile_uat_io_checklist='type=PGSQL:host=vmlinpgsqluat1:port=5432:dbname=io_checklist:user=in2_admin'
+let g:dbext_default_profile_prd_io_checklist='type=PGSQL:host=vmlinpgsqlprd1:port=5432:dbname=io_checklist:user=in2_admin'
 let g:dbext_default_profile_uat_io_chat='type=PGSQL:host=vmlinpgsqluat1:port=5432:dbname=io_chat:user=in2_admin'
 let g:dbext_default_profile_uat_audit='type=PGSQL:host=vmlinpgsqluat1:port=5432:dbname=io_audit_uat:user=in2_admin'
 let g:dbext_default_profile_prd_io='type=PGSQL:host=vmlinpgsqlprd1:port=5432:dbname=in2_io:user=in2_admin'
+let g:dbext_default_profile_prd_in2_bot='type=PGSQL:host=vmlinpgsqlprd1:port=5432:dbname=in2_bot:user=in2_admin'
+let g:dbext_default_profile_uat_in2_bot='type=PGSQL:host=vmlinpgsqluat1:port=5432:dbname=in2_bot_uat:user=in2_admin'
 let g:dbext_default_profile_prd_io_audit='type=PGSQL:host=vmlinpgsqlprd1:port=5432:dbname=in2_io:user=io_audit'
 let g:dbext_default_profile_prd_audit='type=PGSQL:host=vmlinpgsqlprd1:port=5432:dbname=io_audit:user=in2_admin'
 let g:dbext_default_profile_dev_io='type=PGSQL:host=localhost:port=5432:dbname=in2_io_dev:user=in2_admin'
@@ -481,3 +493,30 @@ let g:jsx_ext_required = 0
 
 " Plug javascript-libraries-syntax.vim
 let g:used_javascript_libs = 'lodash,react,jQuery,'
+
+" Goyo (distraction free editing)
+let g:goyo_width = 101
+function! s:goyo_enter()
+  set list
+  " unicode chars: type ctrl-vu followed by 4 digit hex code
+  " ¬	U+00AC	not sign
+  " ▸	U+25B8	black right-pointing small triangle
+  set listchars=tab:▸\ ,eol:¬,trail:_,extends:>,precedes:<,nbsp:_,space:·
+endfunction
+
+"toggle distraction free mode
+""nnoremap <Leader>z :LiteDFMToggle<CR>
+
+"set statusline=%{expand('%:p:h:t')}/%t
+
+"""""" lightline """"""""""
+" Replace filename component of Lightline statusline
+let g:lightline = {
+      \ 'component_function': {
+      \   'filename': 'FilenameForLightline'
+      \ }
+      \ }
+"show file name and parent directory
+function! FilenameForLightline()
+  return expand('%:h:t') . '/' . expand('%:t')
+endfunction
